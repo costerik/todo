@@ -1,0 +1,11 @@
+dist
+coverage
+node_modules
+yarn-cache
+build
+storybook/storyLoader.js
+storybook/storybook.js
+.storybook/*
+.build-storybook/*
+.git
+.idea
