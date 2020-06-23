@@ -1,0 +1,13 @@
+.container {
+}
+
+.input {
+  min-height: 30px;
+  border-width: 0px;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  &:focus {
+    outline: none;
+  }
+}

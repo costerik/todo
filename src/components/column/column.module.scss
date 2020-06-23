@@ -1,0 +1,34 @@
+.container {
+  margin: 20px;
+  padding: 10px;
+  background: #ebecf0;
+  min-width: 300px;
+  border-radius: 5px;
+}
+
+.title {
+  font-weight: bold;
+  min-height: 40px;
+}
+
+.addCardContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.addCard {
+  flex: 1;
+  padding-left: 10px;
+  min-height: 30px;
+  color: gray;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    color: #000000;
+    background: rgba(128, 128, 128, 0.5);
+  }
+}

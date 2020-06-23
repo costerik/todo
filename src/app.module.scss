@@ -1,0 +1,27 @@
+.main {
+  background-color: #fdcd07;
+  min-height: 100vh;
+  min-width: fit-content;
+}
+
+.nav {
+  background-color: #f0bd05;
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  ul {
+    display: flex;
+    li {
+      list-style-type: none;
+      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a {
+        text-decoration: none;
+        color: #000000;
+        font-weight: bold;
+      }
+    }
+  }
+}
