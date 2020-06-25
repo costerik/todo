@@ -39,7 +39,7 @@ export const fetchTasks = (): ThunkAction<Promise<void>, ReturnRootStateType, un
     try {
       dispatch(startedFetchTasks());
       const {data} = await axios.get<Array<TaskType>>(`${process.env.REACT_APP_BASE_URL}/tasks`);
-      finishedFetchTasks(data);
+      dispatch(finishedFetchTasks(data));
     } catch (e) {
       dispatch(errorFetchTasks(e));
     }

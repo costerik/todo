@@ -1,11 +1,14 @@
 import * as actionsTypes from './actions-types';
+import {UserType} from '../users/types';
 
 export type TaskType = {
+  _id: string;
   title: string;
   description: string;
-  user: {[key: string]: string};
+  user: UserType | null;
   createAt: Date;
   updatedAt: Date;
+  __v: number;
 };
 export type InitialStateType = {
   state: string;
