@@ -1,10 +1,12 @@
 import * as actionsTypes from './actions-types';
 import {UserType} from '../users/types';
+import {StateType} from '../states/types';
 
 export type TaskType = {
   _id: string;
   title: string;
   description: string;
+  state: StateType;
   user: UserType | null;
   createAt: Date;
   updatedAt: Date;
@@ -35,4 +37,29 @@ export type errorFetchTasksType = {
     error: string;
   };
 };
-export type ActionsTypes = startedFetchTasksType | finishedFetchTasksType | errorFetchTasksType;
+export type startedCreateTaskType = {
+  type: typeof actionsTypes.STARTED_CREATE_TASK;
+  payload: {
+    state: string;
+  };
+};
+export type finishedCreateTaskType = {
+  type: typeof actionsTypes.FINISHED_CREATE_TASK;
+  payload: {
+    state: string;
+  };
+};
+export type errorCreateTaskType = {
+  type: typeof actionsTypes.ERROR_CREATE_TASK;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
+export type ActionsTypes =
+  | startedFetchTasksType
+  | finishedFetchTasksType
+  | errorFetchTasksType
+  | startedCreateTaskType
+  | finishedCreateTaskType
+  | errorCreateTaskType;

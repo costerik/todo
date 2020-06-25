@@ -32,3 +32,26 @@
     background: rgba(128, 128, 128, 0.5);
   }
 }
+
+.addCardButton {
+  background: rgba(100, 221, 114, 1);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background: rgba(100, 221, 114, 0.7);
+  }
+}
+
+.cross {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(77, 77, 77, 1);
+  margin-left: 5px;
+  &:hover {
+    color: rgba(77, 77, 77, 0.7);
+  }
+}
