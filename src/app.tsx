@@ -8,8 +8,10 @@ import {fetchTasks} from './reducers/tasks/actions';
 import {fetchStates} from './reducers/states/actions';
 import {fetchUsers} from './reducers/users/actions';
 
+/* components */
 import Tasks from './components/tasks';
 import SearchBox from './components/search-box';
+import Users from './components/users';
 
 function App(): ReactElement {
   const dispatch = useDispatch();
@@ -41,7 +43,7 @@ function App(): ReactElement {
             <Tasks />
           </Route>
           <Route exact path="/users">
-            <div>Users </div>
+            <Users />
           </Route>
         </Switch>
       </div>
