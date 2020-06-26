@@ -75,6 +75,25 @@ export type errorUpdateTaskType = {
     error: string;
   };
 };
+export type startedRemoveUserTaskType = {
+  type: typeof actionsTypes.STARTED_REMOVE_USER_TASK;
+  payload: {
+    state: string;
+  };
+};
+export type finishedRemoveUserTaskType = {
+  type: typeof actionsTypes.FINISHED_REMOVE_USER_TASK;
+  payload: {
+    state: string;
+  };
+};
+export type errorRemoveUserTaskType = {
+  type: typeof actionsTypes.ERROR_REMOVE_USER_TASK;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
 
 export type ActionsTypes =
   | startedFetchTasksType
@@ -85,4 +104,7 @@ export type ActionsTypes =
   | errorCreateTaskType
   | startedUpdateTaskType
   | finishedUpdateTaskType
-  | errorUpdateTaskType;
+  | errorUpdateTaskType
+  | startedRemoveUserTaskType
+  | finishedRemoveUserTaskType
+  | errorRemoveUserTaskType;

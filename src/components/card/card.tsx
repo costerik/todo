@@ -4,7 +4,7 @@ import Select from 'react-select';
 import {useSelector, useDispatch} from 'react-redux';
 
 /* actions */
-import {updateTask} from '../../reducers/tasks/actions';
+import {updateTask, removeUserFromTask} from '../../reducers/tasks/actions';
 import {addTaskToUser} from '../../reducers/users/actions';
 
 /* types */
@@ -19,6 +19,8 @@ function Card({
   descriptionText = 'Description',
   stateText = 'State',
   userText = 'User',
+  removeUserText = 'Remove User',
+  updateText = 'Update',
   title,
   edit = false,
   user,
@@ -95,6 +97,7 @@ function Card({
         <div className={style.modalContainer}>
           <form
             onSubmit={(e): void => {
+              console.log('submit');
               e.preventDefault();
               let update = false;
               const data: {
@@ -167,6 +170,16 @@ function Card({
             />
             <div className={style.containerButtons}>
               <button
+                disabled={!user}
+                onClick={(): void => {
+                  dispatch(removeUserFromTask(_id as string));
+                  closeModal();
+                }}
+                className={style.removeButton}
+                type="button">
+                {removeUserText}
+              </button>
+              <button
                 disabled={
                   !(
                     title?.trim() !== newTitle?.trim() ||
@@ -177,7 +190,7 @@ function Card({
                 }
                 className={style.updateButton}
                 type="submit">
-                UPDATE
+                {updateText}
               </button>
             </div>
           </form>

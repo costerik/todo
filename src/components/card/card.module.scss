@@ -71,6 +71,18 @@
     .containerButtons {
       display: flex;
       justify-content: flex-end;
+      .removeButton {
+        margin: 10px 10px 0px 10px;
+        background: rgba(255, 0, 0, 1);
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        outline: none;
+        &:hover {
+          background: rgba(255, 0, 0, 0.7);
+        }
+      }
       .updateButton {
         margin: 10px 10px 0px 10px;
         background: rgb(253, 205, 7);

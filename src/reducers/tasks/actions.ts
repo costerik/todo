@@ -92,7 +92,7 @@ export const createTask = (
   };
 };
 
-/* create task */
+/* update task */
 export const startedUpdateTask = (): ActionsTypes => ({
   type: actionTypes.STARTED_UPDATE_TASK,
   payload: {
@@ -139,6 +139,45 @@ export const updateTask = ({
       await Promise.all([dispatch(fetchTasks() as any), dispatch(fetchUsers() as any)]);
     } catch (e) {
       dispatch(errorUpdateTask(e));
+    }
+  };
+};
+
+/* remove user from task */
+export const startedRemoveUserTask = (): ActionsTypes => ({
+  type: actionTypes.STARTED_UPDATE_TASK,
+  payload: {
+    state: generalActionTypes.UPDATE,
+  },
+});
+
+export const finishedRemoveUserTask = (): ActionsTypes => ({
+  type: actionTypes.FINISHED_REMOVE_USER_TASK,
+  payload: {
+    state: generalActionTypes.FINISHED,
+  },
+});
+
+export const errorRemoveUserTask = (error: string): ActionsTypes => ({
+  type: actionTypes.ERROR_REMOVE_USER_TASK,
+  payload: {
+    state: generalActionTypes.ERROR,
+    error,
+  },
+});
+
+export const removeUserFromTask = (
+  taskId: string,
+): ThunkAction<Promise<void>, ReturnRootStateType, unknown, AnyAction> => {
+  return async (dispatch: ThunkDispatch<unknown, unknown, AnyAction>): Promise<void> => {
+    try {
+      dispatch(startedRemoveUserTask());
+      await axios.patch<TaskType>(`${process.env.REACT_APP_BASE_URL}/tasks/${taskId}/user`);
+      dispatch(finishedRemoveUserTask());
+      //eslint-disable-next-line
+      await Promise.all([dispatch(fetchTasks() as any), dispatch(fetchUsers() as any)]);
+    } catch (e) {
+      dispatch(errorRemoveUserTask(e));
     }
   };
 };
