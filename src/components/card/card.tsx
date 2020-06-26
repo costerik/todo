@@ -13,9 +13,10 @@ function Card({
   titleText = 'Title',
   descriptionText = 'Description',
   stateText = 'State',
+  userText = 'User',
   title,
   edit = false,
-  owner,
+  user,
   onChangeValueText,
   description,
   state,
@@ -24,14 +25,19 @@ function Card({
   const statesOption = useSelector((rootstate: ReturnRootStateType) =>
     rootstate.statesReducer.states?.map((e) => ({label: e.name, value: e._id})),
   );
+  const usersOption = useSelector((rootState: ReturnRootStateType) =>
+    rootState.usersReducer.users?.map((u) => ({label: `${u.name} ${u.lastname}`, value: u._id})),
+  );
   const [isOpen, setIsOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(title);
   const [newDescription, setNewDescription] = React.useState(description);
-  const [stateLocal, setStateLocal] = React.useState(() => {
-    return statesOption?.find((s) => {
-      const res = state?.name || '';
-      return s.label === res;
-    });
+  const [stateLocal, setStateLocal] = React.useState({
+    value: state?._id as string,
+    label: state?.name as string,
+  });
+  const [userLocal, setUserLocal] = React.useState({
+    value: user && user._id,
+    label: user && `${user.name} ${user.lastname}`,
   });
 
   const dispatch = useDispatch();
@@ -46,9 +52,11 @@ function Card({
         onClick={(): void => {
           if (!edit) setIsOpen(true);
         }}>
-        {owner && (
+        {user && (
           <div className={style.containerOwner}>
-            <p className={style.owner}>{owner}</p>
+            <p className={style.owner}>
+              {user.name} {user.lastname}
+            </p>
           </div>
         )}
         {edit ? (
@@ -124,13 +132,25 @@ function Card({
                 setStateLocal(e as SetStateAction<typeof stateLocal>);
               }}
             />
+            <label htmlFor="user">{userText}</label>
+            <Select
+              className={style.select}
+              id="user"
+              name="user"
+              value={userLocal}
+              options={usersOption}
+              onChange={(e): void => {
+                setUserLocal(e as SetStateAction<typeof userLocal>);
+              }}
+            />
             <div className={style.containerButtons}>
               <button
                 disabled={
                   !(
                     title?.trim() !== newTitle?.trim() ||
                     newDescription?.trim() !== description?.trim() ||
-                    state?.name !== stateLocal?.label
+                    state?._id !== stateLocal?.value ||
+                    user?._id !== userLocal?.value
                   )
                 }
                 className={style.updateButton}

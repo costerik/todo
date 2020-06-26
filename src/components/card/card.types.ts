@@ -7,5 +7,6 @@ export type CardType = {
   titleText?: string;
   descriptionText?: string;
   stateText?: string;
+  userText?: string;
   onChangeValueText?: (value: string) => void;
 } & Partial<TaskType>;

@@ -75,6 +75,7 @@ export type errorUpdateTaskType = {
     error: string;
   };
 };
+
 export type ActionsTypes =
   | startedFetchTasksType
   | finishedFetchTasksType

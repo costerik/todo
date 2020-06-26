@@ -6,6 +6,8 @@ import {InitialStateType, ActionsTypes} from './types';
 
 export default (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
+    case actionTypes.FINISHED_UPDATE_TASK:
+    case actionTypes.STARTED_UPDATE_TASK:
     case actionTypes.FINISHED_CREATE_TASK:
     case actionTypes.STARTED_FETCH_TASKS:
     case actionTypes.STARTED_CREATE_TASK:
@@ -20,6 +22,7 @@ export default (state: InitialStateType = initialState, action: ActionsTypes): I
         tasks: action.payload.data,
         error: null,
       };
+    case actionTypes.ERROR_UPDATE_TASK:
     case actionTypes.ERROR_CREATE_TASK:
     case actionTypes.ERROR_FETCH_TASKS:
       return {
