@@ -15,6 +15,7 @@ import Users from './components/users';
 
 function App(): ReactElement {
   const dispatch = useDispatch();
+  const [search, setSearch] = React.useState('');
 
   React.useEffect(() => {
     dispatch(fetchTasks());
@@ -34,13 +35,13 @@ function App(): ReactElement {
               <Link to="/users">Users</Link>
             </li>
             <li>
-              <SearchBox />
+              <SearchBox onChangeText={setSearch} />
             </li>
           </ul>
         </nav>
         <Switch>
           <Route exact path="/">
-            <Tasks />
+            <Tasks search={search} />
           </Route>
           <Route exact path="/users">
             <Users />

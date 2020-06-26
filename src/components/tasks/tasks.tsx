@@ -9,7 +9,7 @@ import Column from '../column';
 import {ReturnRootStateType} from '../../reducers/reducers.types';
 import {TaskType} from '../../reducers/tasks/types';
 
-function Tasks(): ReactElement {
+function Tasks({search}: {search: string}): ReactElement {
   const {open, inProgress, completed, archived} = useSelector((state: ReturnRootStateType) => {
     const open: Array<TaskType> = [];
     const inProgress: Array<TaskType> = [];
@@ -39,12 +39,17 @@ function Tasks(): ReactElement {
       completed,
     };
   });
+
   return (
     <div className={style.container}>
-      <Column title="Open" state="OPEN" tasks={open} />
-      <Column title="In progress" state="IN-PROGRESS" tasks={inProgress} />
-      <Column title="Completed" state="COMPLETED" tasks={completed} />
-      <Column title="Archived" state="ARCHIVED" tasks={archived} />
+      <Column title="Open" state="OPEN" tasks={open.filter((e) => e.title.includes(search))} />
+      <Column
+        title="In progress"
+        state="IN-PROGRESS"
+        tasks={inProgress.filter((e) => e.title.includes(search))}
+      />
+      <Column title="Completed" state="COMPLETED" tasks={completed.filter((e) => e.title.includes(search))} />
+      <Column title="Archived" state="ARCHIVED" tasks={archived.filter((e) => e.title.includes(search))} />
     </div>
   );
 }
