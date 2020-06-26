@@ -3,10 +3,15 @@ import Modal from 'react-modal';
 import Select from 'react-select';
 import {useSelector, useDispatch} from 'react-redux';
 
-import style from './card.module.scss';
-import {CardType} from './card.types';
-import {ReturnRootStateType} from '../../reducers/reducers.types';
+/* actions */
 import {updateTask} from '../../reducers/tasks/actions';
+import {addTaskToUser} from '../../reducers/users/actions';
+
+/* types */
+import {ReturnRootStateType} from '../../reducers/reducers.types';
+import {CardType} from './card.types';
+
+import style from './card.module.scss';
 
 function Card({
   placeholder = 'Enter a title for this card',
@@ -89,16 +94,33 @@ function Card({
         }}>
         <div className={style.modalContainer}>
           <form
-            onSubmit={async (e): Promise<void> => {
+            onSubmit={(e): void => {
               e.preventDefault();
-              dispatch(
-                updateTask({
-                  title: newTitle,
-                  description: newDescription,
-                  state: stateLocal?.value,
-                  id: _id as string,
-                }),
-              );
+              let update = false;
+              const data: {
+                title?: string;
+                description?: string;
+                state?: string;
+                id: string;
+              } = {id: _id as string};
+              if (title?.trim() !== newTitle?.trim()) {
+                update = true;
+                data.title = newTitle;
+              }
+              if (newDescription?.trim() !== description?.trim()) {
+                update = true;
+                data.description = newDescription;
+              }
+              if (state?._id !== stateLocal?.value) {
+                update = true;
+                data.state = stateLocal.value;
+              }
+              if (update) {
+                dispatch(updateTask(data));
+              }
+              if (user?._id !== userLocal.value) {
+                dispatch(addTaskToUser({userId: userLocal.value as string, taskId: _id as string}));
+              }
               closeModal();
             }}>
             <div className={style.cross}>

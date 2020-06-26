@@ -35,4 +35,29 @@ export type errorFetchUsersType = {
     error: string;
   };
 };
-export type ActionsTypes = startedFetchUsersType | finishedFetchUsersType | errorFetchUsersType;
+export type startedAddTaskToUserType = {
+  type: typeof actionsTypes.STARTED_ADD_TASK_TO_USER;
+  payload: {
+    state: string;
+  };
+};
+export type finishedAddTaskToUserType = {
+  type: typeof actionsTypes.FINISHED_ADD_TASK_TO_USER;
+  payload: {
+    state: string;
+  };
+};
+export type errorAddTaskToUserType = {
+  type: typeof actionsTypes.ERROR_ADD_TASK_TO_USER;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
+export type ActionsTypes =
+  | startedFetchUsersType
+  | finishedFetchUsersType
+  | errorFetchUsersType
+  | startedAddTaskToUserType
+  | finishedAddTaskToUserType
+  | errorAddTaskToUserType;

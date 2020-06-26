@@ -1,4 +1,9 @@
-/*  tasks  */
+/*  users  */
 export const STARTED_FETCH_USERS = 'STARTED_FETCH_USERS';
 export const FINISHED_FETCH_USERS = 'FINISHED_FETCH_USERS';
 export const ERROR_FETCH_USERS = 'ERROR_FETCH_USERS';
+
+/*  add task to a user  */
+export const STARTED_ADD_TASK_TO_USER = 'STARTED_ADD_TASK_TO_USER';
+export const FINISHED_ADD_TASK_TO_USER = 'FINISHED_ADD_TASK_TO_USER';
+export const ERROR_ADD_TASK_TO_USER = 'ERROR_ADD_TASK_TO_USER';

@@ -6,6 +6,8 @@ import {InitialStateType, ActionsTypes} from './types';
 
 export default (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
+    case actionTypes.STARTED_ADD_TASK_TO_USER:
+    case actionTypes.FINISHED_ADD_TASK_TO_USER:
     case actionTypes.STARTED_FETCH_USERS:
       return {
         ...state,
@@ -18,6 +20,7 @@ export default (state: InitialStateType = initialState, action: ActionsTypes): I
         users: action.payload.data,
         error: null,
       };
+    case actionTypes.ERROR_ADD_TASK_TO_USER:
     case actionTypes.ERROR_FETCH_USERS:
       return {
         ...state,
