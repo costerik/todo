@@ -56,10 +56,32 @@ export type errorCreateTaskType = {
     error: string;
   };
 };
+export type startedUpdateTaskType = {
+  type: typeof actionsTypes.STARTED_UPDATE_TASK;
+  payload: {
+    state: string;
+  };
+};
+export type finishedUpdateTaskType = {
+  type: typeof actionsTypes.FINISHED_UPDATE_TASK;
+  payload: {
+    state: string;
+  };
+};
+export type errorUpdateTaskType = {
+  type: typeof actionsTypes.ERROR_UPDATE_TASK;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
 export type ActionsTypes =
   | startedFetchTasksType
   | finishedFetchTasksType
   | errorFetchTasksType
   | startedCreateTaskType
   | finishedCreateTaskType
-  | errorCreateTaskType;
+  | errorCreateTaskType
+  | startedUpdateTaskType
+  | finishedUpdateTaskType
+  | errorUpdateTaskType;

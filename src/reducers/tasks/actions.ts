@@ -10,6 +10,9 @@ import * as generalActionTypes from '../general-actions-types';
 import {ActionsTypes, TaskType} from './types';
 import {ReturnRootStateType} from '../reducers.types';
 
+/* actions */
+import {fetchUsers} from '../users/actions';
+
 /* tasks */
 export const startedFetchTasks = (): ActionsTypes => ({
   type: actionTypes.STARTED_FETCH_TASKS,
@@ -82,9 +85,60 @@ export const createTask = (
       await axios.post<TaskType>(`${process.env.REACT_APP_BASE_URL}/tasks`, body);
       dispatch(finishedCreateTask());
       //eslint-disable-next-line
-      dispatch(fetchTasks() as any);
+      await dispatch(fetchTasks() as any);
     } catch (e) {
       dispatch(errorCreateTask(e));
+    }
+  };
+};
+
+/* create task */
+export const startedUpdateTask = (): ActionsTypes => ({
+  type: actionTypes.STARTED_UPDATE_TASK,
+  payload: {
+    state: generalActionTypes.UPDATE,
+  },
+});
+
+export const finishedUpdateTask = (): ActionsTypes => ({
+  type: actionTypes.FINISHED_UPDATE_TASK,
+  payload: {
+    state: generalActionTypes.FINISHED,
+  },
+});
+
+export const errorUpdateTask = (error: string): ActionsTypes => ({
+  type: actionTypes.ERROR_UPDATE_TASK,
+  payload: {
+    state: generalActionTypes.ERROR,
+    error,
+  },
+});
+
+export const updateTask = ({
+  title = '',
+  description = '',
+  state = '',
+  id,
+}: {
+  title?: string;
+  description?: string;
+  state?: string;
+  id: string;
+}): ThunkAction<Promise<void>, ReturnRootStateType, unknown, AnyAction> => {
+  return async (dispatch: ThunkDispatch<unknown, unknown, AnyAction>): Promise<void> => {
+    try {
+      const body = {} as Partial<{title: string; state: string; description: string; id: string}>;
+      if (title.trim().length > 0) body.title = title;
+      if (description.trim().length > 0) body.description = description;
+      if (state.trim().length > 0) body.state = state;
+      dispatch(startedUpdateTask());
+      await axios.patch<TaskType>(`${process.env.REACT_APP_BASE_URL}/tasks/${id}`, body);
+      dispatch(finishedUpdateTask());
+      //eslint-disable-next-line
+      await Promise.all([dispatch(fetchTasks() as any), dispatch(fetchUsers() as any)]);
+    } catch (e) {
+      dispatch(errorUpdateTask(e));
     }
   };
 };

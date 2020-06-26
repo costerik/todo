@@ -1,23 +1,28 @@
 import React, {ReactElement, SetStateAction} from 'react';
 import Modal from 'react-modal';
 import Select from 'react-select';
+import {useSelector, useDispatch} from 'react-redux';
 
 import style from './card.module.scss';
 import {CardType} from './card.types';
-import {useSelector} from 'react-redux';
 import {ReturnRootStateType} from '../../reducers/reducers.types';
+import {updateTask} from '../../reducers/tasks/actions';
 
 function Card({
   placeholder = 'Enter a title for this card',
+  titleText = 'Title',
+  descriptionText = 'Description',
+  stateText = 'State',
   title,
   edit = false,
   owner,
   onChangeValueText,
   description,
   state,
+  _id,
 }: CardType): ReactElement {
   const statesOption = useSelector((rootstate: ReturnRootStateType) =>
-    rootstate.statesReducer.states?.map((e) => ({label: e.name, value: e.name})),
+    rootstate.statesReducer.states?.map((e) => ({label: e.name, value: e._id})),
   );
   const [isOpen, setIsOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(title);
@@ -28,6 +33,8 @@ function Card({
       return s.label === res;
     });
   });
+
+  const dispatch = useDispatch();
 
   function closeModal(): void {
     setIsOpen(false);
@@ -74,13 +81,22 @@ function Card({
         }}>
         <div className={style.modalContainer}>
           <form
-            onSubmit={(e): void => {
+            onSubmit={async (e): Promise<void> => {
               e.preventDefault();
+              dispatch(
+                updateTask({
+                  title: newTitle,
+                  description: newDescription,
+                  state: stateLocal?.value,
+                  id: _id as string,
+                }),
+              );
+              closeModal();
             }}>
             <div className={style.cross}>
               <span onClick={closeModal}>X</span>
             </div>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">{titleText}</label>
             <input
               id="title"
               name="title"
@@ -89,7 +105,7 @@ function Card({
                 e.preventDefault();
                 setNewTitle(e.target.value);
               }}></input>
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{descriptionText}</label>
             <textarea
               id="description"
               name="description"
@@ -97,7 +113,7 @@ function Card({
               onChange={(e): void => {
                 setNewDescription(e.target.value);
               }}></textarea>
-            <label htmlFor="state">State</label>
+            <label htmlFor="state">{stateText}</label>
             <Select
               className={style.select}
               id="state"
@@ -111,7 +127,11 @@ function Card({
             <div className={style.containerButtons}>
               <button
                 disabled={
-                  !(title?.trim() !== newTitle?.trim() || newDescription?.trim() !== description?.trim())
+                  !(
+                    title?.trim() !== newTitle?.trim() ||
+                    newDescription?.trim() !== description?.trim() ||
+                    state?.name !== stateLocal?.label
+                  )
                 }
                 className={style.updateButton}
                 type="submit">
