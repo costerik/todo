@@ -25,7 +25,7 @@ function Column({
       <h1 className={style.title}>{title}</h1>
       {tasks?.map((t) => {
         const owner = t.user ? `${t.user?.name} ${t.user?.lastname}` : undefined;
-        return <Card key={t._id} owner={owner} title={t.title} id={t._id} />;
+        return <Card key={t._id} owner={owner} {...t} />;
       })}
       {!create ? (
         <div className={style.addCardContainer} onClick={(): void => setCreate(true)}>

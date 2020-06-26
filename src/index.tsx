@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
+import Modal from 'react-modal';
 
 /* redux */
 import {Provider} from 'react-redux';
 import store from './store';
+
+Modal.setAppElement('#root');
 
 ReactDOM.render(
   <React.StrictMode>
