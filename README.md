@@ -1,6 +1,10 @@
 # todo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Environments Variables
+you should create an `.env` file and includes the variable `REACT_APP_BASE_URL` with the API  url.
+
+### URL
+this is the URL of the project `nice-talk.surge.sh`
 
 ## Available Scripts
 
@@ -28,6 +32,3 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### Environments Variables
-you should create an `.env` file and includes the variable `REACT_APP_BASE_URL` with the API  url.
