@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, batch} from 'react-redux';
 import style from './app.module.scss';
 
 /* actions */
@@ -18,9 +18,11 @@ function App(): ReactElement {
   const [search, setSearch] = React.useState('');
 
   React.useEffect(() => {
-    dispatch(fetchTasks());
-    dispatch(fetchStates());
-    dispatch(fetchUsers());
+    batch(() => {
+      dispatch(fetchTasks());
+      dispatch(fetchStates());
+      dispatch(fetchUsers());
+    });
   }, []);
 
   return (
