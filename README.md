@@ -4,7 +4,7 @@
 you should create an `.env` file and includes the variable `REACT_APP_BASE_URL` with the API  url.
 
 ### URL
-this is the URL of the project `nice-talk.surge.sh`
+this is the URL of the project `https://nice-talk.surge.sh`
 
 ## Available Scripts
 

@@ -23,7 +23,7 @@ function App(): ReactElement {
       dispatch(fetchStates());
       dispatch(fetchUsers());
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>
